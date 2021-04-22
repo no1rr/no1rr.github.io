@@ -9,7 +9,7 @@
     
     <title>
         
-            Hello World |
+            BABYRE |
         
         no1r&#39;s blog
     </title>
@@ -123,7 +123,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Hello World</span>
+            <span class="title-hover-animation">BABYRE</span>
         </div>
 
         
@@ -139,9 +139,47 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-04-20 21:02:25
+        <i class="fas fa-edit"></i>&nbsp;2020-07-05 19:45:35
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ctf/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">攻防世界</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ctf/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">攻防世界</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -156,19 +194,12 @@
         
 
         <div class="article-content markdown-body">
-            <p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <p>主函数<br><img src="/images/pasted-56.png" alt="upload successful"><br>进入关键函数judge，IDA出错<br><img src="/images/pasted-57.png" alt="upload successful"><br><img src="/images/pasted-58.png" alt="upload successful"><br>应该是主函数中对judge函数异或导致的，可以写脚本还原函数<br>python脚本(后缀名要改为.py)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">judge=<span class="number">0x600B00</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">182</span>):</span><br><span class="line">    addr=<span class="number">0x600B00</span>+i</span><br><span class="line">    byte=get_bytes(addr,<span class="number">1</span>) <span class="comment"># 获取指定地址的指定字节数</span></span><br><span class="line">    byte=<span class="built_in">ord</span>(byte)^<span class="number">0xC</span></span><br><span class="line">    patch_byte(addr,byte )<span class="comment"># 打patch修改字节</span></span><br></pre></td></tr></table></figure>
+<p>IDA中File -&gt; Script file 选择写好的脚本,脚本运行完后，把已汇编的代码undefine(快捷键u），再重新生成函数(快捷键p)，再f5发现又出错<br><img src="/images/pasted-59.png" alt="upload successful"><br>解决办法参考我的另一篇<a class="link"   target="_blank" rel="noopener" href="http://pluie.top/2020/06/30/IDA-positive-sp-value-has-been-found/" >文章<i class="fas fa-external-link-alt"></i></a>。再f5就可以了。<br><img src="/images/pasted-60.png" alt="upload successful"><br>函数很简单，贴出脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x63</span>,<span class="number">0x64</span>,<span class="number">0x7f</span>,<span class="number">0x6b</span>,<span class="number">0x37</span>,<span class="number">0x64</span>,<span class="number">0x3b</span>,<span class="number">0x56</span>,<span class="number">0x60</span>,<span class="number">0x3b</span>,<span class="number">0x6e</span>,<span class="number">0x70</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a))</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(a[i] ^ i)</span><br><span class="line">    <span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a class="link"   target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4205" >https://xz.aliyun.com/t/4205<i class="fas fa-external-link-alt"></i></a></p>
 
         </div>
 
@@ -176,11 +207,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Hello World</li>
+        <li>Post title：BABYRE</li>
         <li>Post author：no1r</li>
-        <li>Create time：2021-04-20 21:02:25</li>
+        <li>Create time：2020-07-05 19:45:35</li>
         <li>
-            Post link：https://no1rr.github.io/2021/04/20/hello-world/
+            Post link：https://no1rr.github.io/2020/07/05/BABYRE/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -194,14 +225,29 @@
         
             <div class="article-nav">
                 
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/09/03/pyinstaller%E6%89%93%E5%8C%85%E7%9A%84-exe%E6%96%87%E4%BB%B6%E5%8F%8D%E6%B1%87%E7%BC%96%E6%88%90-py%E6%96%87%E4%BB%B6/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">pyinstaller打包的.exe文件反编译成.py文件</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/10/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn-Mary-Morton/"
+                           href="/2020/06/30/IDA-positive-sp-value-has-been-found/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">攻防世界-pwn-Mary_Morton</span>
+                                <span class="post-nav-title-item">IDA decompilation failure:positive sp value has been found</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -321,7 +367,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-text">参考文章</span></a></li></ol>
     </div>
 </div>
         </aside>

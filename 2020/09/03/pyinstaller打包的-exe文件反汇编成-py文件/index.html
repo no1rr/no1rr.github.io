@@ -9,7 +9,7 @@
     
     <title>
         
-            Hello World |
+            pyinstaller打包的.exe文件反编译成.py文件 |
         
         no1r&#39;s blog
     </title>
@@ -123,7 +123,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Hello World</span>
+            <span class="title-hover-animation">pyinstaller打包的.exe文件反编译成.py文件</span>
         </div>
 
         
@@ -139,9 +139,39 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-04-20 21:02:25
+        <i class="fas fa-edit"></i>&nbsp;2020-09-03 21:09:04
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ctf/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -156,19 +186,22 @@
         
 
         <div class="article-content markdown-body">
-            <p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+            <h3 id="0x00-工具"><a href="#0x00-工具" class="headerlink" title="0x00 工具"></a>0x00 工具</h3><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/countercept/python-exe-unpacker/blob/master/pyinstxtractor.py" >pyinstxtractor<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/rocky/python-uncompyle6" >uncompyle6<i class="fas fa-external-link-alt"></i></a> 安装命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uncompyle6 </span><br></pre></td></tr></table></figure>
+<h3 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h3><p>在做ctf逆向题目时有时会遇到python写的.exe程序，如果能够将.exe反编译成python源码，就能更快解题。python打包exe文件有使用py2exe，pyinstaller，cx_Freeze，nuitka等方式，其中pyinstaller是最常用的方法。</p>
+<h3 id="0x02判断是否为pyinstaller打包的exe文件"><a href="#0x02判断是否为pyinstaller打包的exe文件" class="headerlink" title="0x02判断是否为pyinstaller打包的exe文件"></a>0x02判断是否为pyinstaller打包的exe文件</h3><p>IDA中打开字符串窗口，看到有一大堆Py_开头的字符串，可以判断是python写的程序<br><img src="https://i.loli.net/2020/09/03/aNMxhbJjXsBKZDA.png" alt="image-20200903215009571"><br>接着再CTRL + F搜索 pyinstaller，如果搜索的到，就可以确定是pyinstaller打包<br><img src="https://i.loli.net/2020/09/03/Vvyl2nkDpaABGOX.png" alt="image-20200903215135862"></p>
+<h3 id="0x03-exe转-pyc"><a href="#0x03-exe转-pyc" class="headerlink" title="0x03 .exe转.pyc"></a>0x03 .exe转.pyc</h3><p>首先利用pyinstxtractor脚本将.exe文件转为.pyc文件，指令格式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstxtractor.py  exe文件名称</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2020/09/03/hcNtpvWOJMiZEDl.png" alt="image-20200903215811896"><br>需要注意的是，如果你的本机python版本与写exe的python版本不同的话可能会失败。<br>最后一行显示，你可以反编译.pyc文件。<br>所以，我们就到生成的目录下找到.pyc文件。<br><strong>注意</strong>：有时候会找不到pyc文件，这是因为生成的文件少了pyc文件头，所以我们要找到少了pyc文件头的文件。一般情况下，该文件在名称和exe名称相同的.manifest文件上面。如果不是，可以把没有后缀名的文件都试一试。<br><img src="https://i.loli.net/2020/09/03/Ha5L629sGolr3AR.png" alt="image-20200903222549282"></p>
+<h3 id="0x04-添加pyc文件头"><a href="#0x04-添加pyc文件头" class="headerlink" title="0x04 添加pyc文件头"></a>0x04 添加pyc文件头</h3><p>找到目录下名为struct的文件和pyc文件，用二进制编辑器打开，对比文件头可以看出文件的前16个字节(即\xE3之前的字符，不同的pyc文件少掉的文件头可能不同，所以不一定是十六字节）便是少掉的pyc文件头，将其<strong>添加</strong>到pyc文件偏移量为零的位置。<br><img src="https://i.loli.net/2020/09/27/AcUupPwkB1f8Vqa.png" alt="image-20200927170431255"><br>注意，如果目录下本来就有.pyc文件也需要添加pyc文件头。</p>
+<h3 id="0x05-pyc转-py"><a href="#0x05-pyc转-py" class="headerlink" title="0x05 .pyc转.py"></a>0x05 .pyc转.py</h3><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6 -o 生成文件.py 目标文件.pyc</span><br></pre></td></tr></table></figure>
+<p>注意将pyc文件名改为XXX.pyc,否则会发生错误。<br><img src="https://i.loli.net/2020/09/05/ESBCqy2e6ZXcdpr.png" alt="image-20200905002611490"></p>
+<h3 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06 总结"></a>0x06 总结</h3><p>可能出现的问题：</p>
+<ol>
+<li> .exe转.pyc失败，可能原因是pyinstaller打包时的python版本与你的python版本不同。</li>
+<li> .pyc文件反编译失败，可能原因是pyc文件头没有正确添加。<br><a class="link"   target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iCQqLsEDPPGnLLNGSW8txg" >附件<i class="fas fa-external-link-alt"></i></a> 提取码：lajh</li>
+</ol>
 
         </div>
 
@@ -176,11 +209,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：Hello World</li>
+        <li>Post title：pyinstaller打包的.exe文件反编译成.py文件</li>
         <li>Post author：no1r</li>
-        <li>Create time：2021-04-20 21:02:25</li>
+        <li>Create time：2020-09-03 21:09:04</li>
         <li>
-            Post link：https://no1rr.github.io/2021/04/20/hello-world/
+            Post link：https://no1rr.github.io/2020/09/03/pyinstaller打包的-exe文件反汇编成-py文件/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -194,14 +227,29 @@
         
             <div class="article-nav">
                 
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/09/14/%E7%BE%8A%E5%9F%8E%E6%9D%AF202009re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">羊城杯202009re部分题解</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2020/10/08/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn-Mary-Morton/"
+                           href="/2020/07/05/BABYRE/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">攻防世界-pwn-Mary_Morton</span>
+                                <span class="post-nav-title-item">BABYRE</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -321,7 +369,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-%E5%B7%A5%E5%85%B7"><span class="nav-text">0x00 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%89%8D%E8%A8%80"><span class="nav-text">0x01 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BApyinstaller%E6%89%93%E5%8C%85%E7%9A%84exe%E6%96%87%E4%BB%B6"><span class="nav-text">0x02判断是否为pyinstaller打包的exe文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-exe%E8%BD%AC-pyc"><span class="nav-text">0x03 .exe转.pyc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-%E6%B7%BB%E5%8A%A0pyc%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-text">0x04 添加pyc文件头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x05-pyc%E8%BD%AC-py"><span class="nav-text">0x05 .pyc转.py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x06-%E6%80%BB%E7%BB%93"><span class="nav-text">0x06 总结</span></a></li></ol>
     </div>
 </div>
         </aside>

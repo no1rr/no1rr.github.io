@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="no1r">
+    
+    <title>
+        
+            parallel-comparator-200 |
+        
+        no1r&#39;s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/no1r.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#29B2CC","avatar":"/images/no1r.svg","favicon":"/images/no1r.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"780px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                no1r&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">parallel-comparator-200</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/no1r.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">no1r</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-06-26 00:05:47
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ctf/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">攻防世界</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/ctf/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">攻防世界</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ctf/">ctf</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/reverse/">reverse</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h4 id="源代码："><a href="#源代码：" class="headerlink" title="源代码："></a>源代码：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FLAG_LEN 20</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">checking</span><span class="params">(<span class="keyword">void</span> *arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *result = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">    <span class="keyword">char</span> *argument = (<span class="keyword">char</span> *)arg;</span><br><span class="line">    *result = (argument[<span class="number">0</span>]+argument[<span class="number">1</span>]) ^ argument[<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">highly_optimized_parallel_comparsion</span><span class="params">(<span class="keyword">char</span> *user_string)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> initialization_number;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">char</span> generated_string[FLAG_LEN + <span class="number">1</span>];</span><br><span class="line">    generated_string[FLAG_LEN] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((initialization_number = rand()) &gt;= <span class="number">64</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> first_letter;</span><br><span class="line">    first_letter = (initialization_number % <span class="number">26</span>) + <span class="number">97</span>;        <span class="comment">//经过调试发现是固定值  112</span></span><br><span class="line">    <span class="keyword">pthread_t</span> thread[FLAG_LEN];</span><br><span class="line">    <span class="keyword">char</span> differences[FLAG_LEN] = &#123;<span class="number">0</span>, <span class="number">9</span>, <span class="number">-9</span>, <span class="number">-1</span>, <span class="number">13</span>, <span class="number">-13</span>, <span class="number">-4</span>, <span class="number">-11</span>, <span class="number">-9</span>, <span class="number">-1</span>, <span class="number">-7</span>, <span class="number">6</span>, <span class="number">-13</span>, <span class="number">13</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">-13</span>, <span class="number">-11</span>, <span class="number">6</span>, <span class="number">-7</span>&#125;;</span><br><span class="line">    <span class="keyword">char</span> *arguments[<span class="number">20</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; FLAG_LEN; i++) &#123;</span><br><span class="line">        arguments[i] = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">3</span>*<span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">        arguments[i][<span class="number">0</span>] = first_letter;</span><br><span class="line">        arguments[i][<span class="number">1</span>] = differences[i];</span><br><span class="line">        arguments[i][<span class="number">2</span>] = user_string[i];</span><br><span class="line"></span><br><span class="line">        pthread_create((<span class="keyword">pthread_t</span>*)(thread+i), <span class="literal">NULL</span>, checking, arguments[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> *result;</span><br><span class="line">    <span class="keyword">int</span> just_a_string[FLAG_LEN] = &#123;<span class="number">115</span>, <span class="number">116</span>, <span class="number">114</span>, <span class="number">97</span>, <span class="number">110</span>, <span class="number">103</span>, <span class="number">101</span>, <span class="number">95</span>, <span class="number">115</span>, <span class="number">116</span>, <span class="number">114</span>, <span class="number">105</span>, <span class="number">110</span>, <span class="number">103</span>, <span class="number">95</span>, <span class="number">105</span>, <span class="number">116</span>, <span class="number">95</span>, <span class="number">105</span>, <span class="number">115</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; FLAG_LEN; i++) &#123;</span><br><span class="line">        pthread_join(*(thread+i), &amp;result);</span><br><span class="line"></span><br><span class="line">        generated_string[i] = *(<span class="keyword">char</span> *)result + just_a_string[i];</span><br><span class="line">        <span class="built_in">free</span>(result);</span><br><span class="line">        <span class="built_in">free</span>(arguments[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> is_ok = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; FLAG_LEN; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (generated_string[i] != just_a_string[i])</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *user_string = (<span class="keyword">char</span> *)<span class="built_in">calloc</span>(FLAG_LEN+<span class="number">1</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span>));</span><br><span class="line">    fgets(user_string, FLAG_LEN+<span class="number">1</span>, <span class="built_in">stdin</span>);                                   <span class="comment">//输入20个字符</span></span><br><span class="line">    <span class="keyword">int</span> is_ok = highly_optimized_parallel_comparsion(user_string);</span><br><span class="line">    <span class="keyword">if</span> (is_ok)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;You win!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Wrong!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">`````</span><br><span class="line">粗略看一遍,发现 ```<span class="keyword">pthread_t</span>``` 以及```pthread_join``` ```pthread_create```函数看不懂，于是网上查资料,得知</span><br><span class="line">##### <span class="keyword">pthread_t</span></span><br><span class="line">``` c</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> __int64 <span class="keyword">uintptr_t</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">uintptr_t</span> <span class="keyword">pthread_t</span>;    </span><br></pre></td></tr></table></figure>
+<h5 id="pthread-create-：作用为创建新线程，如果创建成功则返回0，否则返回error-number"><a href="#pthread-create-：作用为创建新线程，如果创建成功则返回0，否则返回error-number" class="headerlink" title="pthread_create    ：作用为创建新线程，如果创建成功则返回0，否则返回error number"></a>pthread_create    ：作用为创建新线程，如果创建成功则返回<code>0</code>，否则返回<code>error number</code></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_create</span><span class="params">(<span class="keyword">pthread_t</span> *thread, <span class="keyword">const</span> <span class="keyword">pthread_attr_t</span> *attr,<span class="keyword">void</span> *(*start_routine)(<span class="keyword">void</span>*), <span class="keyword">void</span> *arg)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>pthread_t *thread</code> 是线程的标识符       </p>
+</li>
+<li><p><code>pthread_attr_t *attr</code>用来设置线程属性（如果为NULL，则为默认属性}</p>
+</li>
+<li><p><code>void *(*start_routine)(void*) </code> 是运行函数的起始地址</p>
+</li>
+<li><p><code>void *arg</code>运行函数的参数</p>
+</li>
+</ul>
+<h5 id="prhread-join-作用为等待一个线程的结束，如果成功则返回0，否则返回error-number"><a href="#prhread-join-作用为等待一个线程的结束，如果成功则返回0，否则返回error-number" class="headerlink" title="prhread_join : 作用为等待一个线程的结束，如果成功则返回0，否则返回error number"></a>prhread_join : 作用为等待一个线程的结束，如果成功则返回<code>0</code>，否则返回<code>error number</code></h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_join</span><span class="params">(<span class="keyword">pthread_t</span> thread, <span class="keyword">void</span> **value_ptr)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>pthread_t thread</code>线程标识符</p>
+</li>
+<li><p><code>void **value_ptr</code> 存储被等待线程的返回值</p>
+</li>
+</ul>
+<p>有了以上知识，可以很容易可以知道user_string[20] (输入数组)的每个元素加上first_letter（经调试为固定值112），然后再与 differences[20]的元素异或,最后与just_a_string[20]的元素进行比较，用代码描述就是：<br> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">strcmp</span>（     ( user_string[i] + first_letter ) ^ differences[i]    ， just_a_string[i]    )</span><br></pre></td></tr></table></figure></p>
+<h4 id="脚本："><a href="#脚本：" class="headerlink" title="脚本："></a>脚本：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>, <span class="number">9</span>, -<span class="number">9</span>, -<span class="number">1</span>, <span class="number">13</span>, -<span class="number">13</span>, -<span class="number">4</span>, -<span class="number">11</span>, -<span class="number">9</span>, -<span class="number">1</span>, -<span class="number">7</span>, <span class="number">6</span>, -<span class="number">13</span>, <span class="number">13</span>, <span class="number">3</span>, <span class="number">9</span>, -<span class="number">13</span>, -<span class="number">11</span>, <span class="number">6</span>, -<span class="number">7</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">if</span> ((a[i]+<span class="number">112</span>) ^ (j+<span class="number">1</span>)) == <span class="number">0</span>:</span><br><span class="line">            flag += <span class="built_in">chr</span>(j+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img2020.cnblogs.com/blog/2000316/202005/2000316-20200519214158181-432474119.png"><br><img src="https://img2020.cnblogs.com/blog/2000316/202005/2000316-20200519214232698-1469210706.png"></p>
+<p>结果当我满怀欣喜地提交flag后，却得知flag是错的，后来实在没有思路就看了别人的wp才知道真相：<br><code>first_letter</code>在windows平台上是112，在linux上是108<br>wtf？<br>参考文章：<br><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/mq0036/p/3710475.html" >https://www.cnblogs.com/mq0036/p/3710475.html<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://pubs.opengroup.org/onlinepubs/7908799/" >https://pubs.opengroup.org/onlinepubs/7908799/<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：parallel-comparator-200</li>
+        <li>Post author：no1r</li>
+        <li>Create time：2020-06-26 00:05:47</li>
+        <li>
+            Post link：https://no1rr.github.io/2020/06/26/parallel-comparator-200/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2020/06/26/no-strings-attached/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">no-strings-attached</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2020/06/26/re1-100/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">re1-100</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">no1r</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="nav-text">源代码：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pthread-create-%EF%BC%9A%E4%BD%9C%E7%94%A8%E4%B8%BA%E5%88%9B%E5%BB%BA%E6%96%B0%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%88%9B%E5%BB%BA%E6%88%90%E5%8A%9F%E5%88%99%E8%BF%94%E5%9B%9E0%EF%BC%8C%E5%90%A6%E5%88%99%E8%BF%94%E5%9B%9Eerror-number"><span class="nav-text">pthread_create    ：作用为创建新线程，如果创建成功则返回0，否则返回error number</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prhread-join-%E4%BD%9C%E7%94%A8%E4%B8%BA%E7%AD%89%E5%BE%85%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%BB%93%E6%9D%9F%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%88%90%E5%8A%9F%E5%88%99%E8%BF%94%E5%9B%9E0%EF%BC%8C%E5%90%A6%E5%88%99%E8%BF%94%E5%9B%9Eerror-number"><span class="nav-text">prhread_join : 作用为等待一个线程的结束，如果成功则返回0，否则返回error number</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%EF%BC%9A"><span class="nav-text">脚本：</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
