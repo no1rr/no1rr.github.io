@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            IDA decompilation failure:positive sp value has been found |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,23 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <h4 id="0x00-问题"><a href="#0x00-问题" class="headerlink" title="0x00 问题"></a>0x00 问题</h4><p>最近在用IDA逆向程序时遇到了F5不能反编译的情况<br><img src="/images/pasted-49.png" alt="upload successful"></p>
+<h4 id="0x01-原因"><a href="#0x01-原因" class="headerlink" title="0x01 原因"></a>0x01 原因</h4><p>一般是程序有一些干扰代码，让IDA的反汇编分析出现错误。比如用push + n条指令 + retn来实现跳转，而IDA会以为retn是函数要结束，结果它分析后发现调用栈不平衡，因此就提示decompilation failure</p>
+<h4 id="0x02-解决办法"><a href="#0x02-解决办法" class="headerlink" title="0x02 解决办法"></a>0x02 解决办法</h4><p>在反汇编窗口该函数的结束位置找到红色部分<br><img src="/images/pasted-51.png" alt="upload successful"><br>勾选Options -&gt; General -&gt; Stack pointer<br><img src="/images/pasted-53.png" alt="upload successful"><br>可以看到左边显示了栈指针，接着在数值为负的上一行(08048A9B)鼠标右键，选择Change stack pointer(快捷键alt+k),输入第一个数值为负的数值,再按F5就可以了<br><img src="/images/pasted-54.png" alt="upload successful"><br><img src="/images/pasted-55.png" alt="upload successful"></p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

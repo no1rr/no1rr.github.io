@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            getit |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,24 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>IDA载入，找到main函数，F5查看伪代码<br><img src="/images/pasted-13.png" alt="upload successful"></p>
+<p>分析可知，对数组t进行处理，以及对文件对一些操作。由此产生疑问，flag是处理后的数组t，还是输入到文件里的内容？<br>不妨先看看数组t以及输入到文件中的u的内容<br><img src="/images/pasted-14.png" alt="upload successful"></p>
+<p>很明显，flag应该是数组t。<br>贴出脚本：<br><img src="/images/pasted-15.png" alt="upload successful"></p>
+<p><img src="/images/pasted-16.png" alt="upload successful"><br>踩过的坑：写脚本时没有看到数组t的第一个字符，结果搞了半天才发现。</p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

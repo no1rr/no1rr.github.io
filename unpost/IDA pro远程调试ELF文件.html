@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            IDA远程调试ELF文件 |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,29 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>主机：Windows10<br>虚拟机：Ubuntu1804<br>首先进入IDA目录下dbgsrv目录，找到linux_sever（32位）和linux_server64（64位）,根据需要复制到linux系统中。<br><img src="/images/pasted-45.png" alt="upload successful"></p>
+<p>如果linux是64位，程序是32位，可以通过以下命令安装32位库和程序支持</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libc6-dev-i386</span><br><span class="line">sudo apt-get install lib32ncurses5 </span><br><span class="line">sudo apt-get install lib32z1</span><br></pre></td></tr></table></figure>
+<p>在linux中运行刚才复制的文件(调试32位文件运行linux_server，64位运行linux_server64)<br><img src="/images/pasted-46.png" alt="upload successful"></p>
+<p>IDA中选择Debugger -&gt; Run -&gt; Remote Linux debugger<br><img src="/images/pasted-47.png" alt="upload successful"></p>
+<p>linux 的IP可通过以下命令查看    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-48.png" alt="upload successful"></p>
+<p>ifconfig通过一下命令安装<br><code>sudo apt install net-tools</code><br>如果出现程序没有停在入口点，可以先终止进程再运行进程。</p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

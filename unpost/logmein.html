@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            logmein |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,23 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>用IDA载入，找到main函数，按F5查看伪代码<br><img src="/images/pasted-31.png" alt="upload successful"><br>其中sub_4007C0为<br><img src="/images/pasted-32.png" alt="upload successful"><br>sub_4007F0为<br><img src="/images/pasted-33.png" alt="upload successful"><br>经分析可知，flag为经过处理的v7和v8异或所得。v8已经给出，重点在v7的处理上。因为是新手第一次遇到这种情况，在网上查找资料后，得知v7是long long int型，处理方式是等价于将v7转换成十六进制再转换成字符串。注意，处理顺序是从低地址到高地址。<br>最后，贴出脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; &#39;harambe&#39;</span><br><span class="line">b &#x3D; &#39;:\&quot;AL_RT^L*.?+6&#x2F;46&#39;</span><br><span class="line">flag &#x3D; &#39;&#39;</span><br><span class="line">for i in range(len(b)):</span><br><span class="line">    temp &#x3D; ord(a[i % 7]) ^ ord(b[i])</span><br><span class="line">    flag +&#x3D; chr(temp)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p> <img src="https://img2020.cnblogs.com/blog/2000316/202005/2000316-20200505180558387-182056489.png"></p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            BABYRE |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,26 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>主函数<br><img src="/images/pasted-56.png" alt="upload successful"><br>进入关键函数judge，IDA出错<br><img src="/images/pasted-57.png" alt="upload successful"><br><img src="/images/pasted-58.png" alt="upload successful"><br>应该是主函数中对judge函数异或导致的，可以写脚本还原函数<br>python脚本(后缀名要改为.py)：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line">judge=<span class="number">0x600B00</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">182</span>):</span><br><span class="line">    addr=<span class="number">0x600B00</span>+i</span><br><span class="line">    byte=get_bytes(addr,<span class="number">1</span>) <span class="comment"># 获取指定地址的指定字节数</span></span><br><span class="line">    byte=<span class="built_in">ord</span>(byte)^<span class="number">0xC</span></span><br><span class="line">    patch_byte(addr,byte )<span class="comment"># 打patch修改字节</span></span><br></pre></td></tr></table></figure>
+<p>IDA中File -&gt; Script file 选择写好的脚本,脚本运行完后，把已汇编的代码undefine(快捷键u），再重新生成函数(快捷键p)，再f5发现又出错<br><img src="/images/pasted-59.png" alt="upload successful"><br>解决办法参考我的另一篇<a class="link"   target="_blank" rel="noopener" href="http://pluie.top/2020/06/30/IDA-positive-sp-value-has-been-found/" >文章<i class="fas fa-external-link-alt"></i></a>。再f5就可以了。<br><img src="/images/pasted-60.png" alt="upload successful"><br>函数很简单，贴出脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x63</span>,<span class="number">0x64</span>,<span class="number">0x7f</span>,<span class="number">0x6b</span>,<span class="number">0x37</span>,<span class="number">0x64</span>,<span class="number">0x3b</span>,<span class="number">0x56</span>,<span class="number">0x60</span>,<span class="number">0x3b</span>,<span class="number">0x6e</span>,<span class="number">0x70</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(a))</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    flag += <span class="built_in">chr</span>(a[i] ^ i)</span><br><span class="line">    <span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
 
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a class="link"   target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4205" >https://xz.aliyun.com/t/4205<i class="fas fa-external-link-alt"></i></a></p>
+
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

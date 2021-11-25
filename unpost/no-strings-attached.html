@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            no-strings-attached |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,21 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>首先查壳，是ELF文件<br><img src="/images/pasted-22.png" alt="upload successful"><br>IDA载入，shift+F12查找字符串，没有发现关键字符串<br><img src="/images/pasted-23.png" alt="upload successful"><br>找到main函数，F5查看伪代码，经过分析最终找到关键函数<code>decrypt</code>（意为解密）<br><img src="/images/pasted-26.png" alt="upload successful"><br><img src="/images/pasted-27.png" alt="upload successful"><br>这里有两种思路：<br>1.根据<code>decrypt</code>函数写脚本解密（比较难）<br>2.用gdb调试<br>这里提供后者思路<br>用gdb调试，在0x08048707处下断点（该地址为decrypt函数结束时的地址，在IDA中可以查看）：<br><img src="/images/pasted-28.png" alt="upload successful"><br><img src="/images/pasted-29.png" alt="upload successful"><br>可以看到eax的内容是<code>0x39</code>，所以输入指令<code>x/sw $eax</code>查看eax内容，结果得到flag<br><img src="/images/pasted-30.png" alt="upload successful"></p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

@@ -9,8 +9,6 @@
     
     <title>
         
-            Archive |
-        
         no1r&#39;s blog
     </title>
     
@@ -66,7 +64,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +98,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +118,37 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><div class="content__1Y2H"><div class="notranslate"><p>给出两个&nbsp;<strong>非空</strong> 的链表用来表示两个非负的整数。其中，它们各自的位数是按照&nbsp;<strong>逆序</strong>&nbsp;的方式存储的，并且它们的每个节点只能存储&nbsp;<strong>一位</strong>&nbsp;数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0&nbsp;开头。</p>
+<p><strong>示例：</strong></p>
+<pre><strong>输入：</strong>(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+<strong>输出：</strong>7 -&gt; 0 -&gt; 8
+<strong>原因：</strong>342 + 465 = 807
+</pre>
+</div></div>    
+#### 分析：
+刚开始我尝试用链表，用malloc分配空间，提交代码后发现内存泄漏，想着在析构函数的实现中释放内存，但是原来的结构体没有声明析构函数，然后不知道怎么解决。所以尝试用new,结果就可以。   
+需要注意的地方：
+l1和l2的最后一个结构体的val相加可能产生进位，这时目标链表需要加上一个结构体，在循环条件设置时需要注意。
+#### 代码：
+<font face="Arial Unicode MS">
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Definition for singly-linked list.</span></span><br><span class="line"><span class="comment">* struct ListNode &#123;</span></span><br><span class="line"><span class="comment">*     int val;</span></span><br><span class="line"><span class="comment">*     ListNode *next;</span></span><br><span class="line"><span class="comment">*     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">* &#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">   <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">     <span class="function">ListNode <span class="title">head</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">     ListNode *current=&amp;head;</span><br><span class="line">     <span class="keyword">int</span> flag=<span class="number">0</span> ;</span><br><span class="line">     <span class="keyword">while</span>(l1||l2||flag)&#123;</span><br><span class="line">       <span class="keyword">int</span> temp=<span class="number">0</span>;</span><br><span class="line">       l1=l1 ? : temp+=l1-&gt;val;</span><br><span class="line">       l2=l2 ? : temp+=l2-&gt;val;</span><br><span class="line">       temp+=flag;</span><br><span class="line">       flag=temp/<span class="number">10</span>;</span><br><span class="line">       temp%=<span class="number">10</span>;</span><br><span class="line">       current-&gt;next=<span class="keyword">new</span> ListNode(temp);</span><br><span class="line">       current=current-&gt;next;</span><br><span class="line">       l1=l1 ? l1-&gt;next : l1;</span><br><span class="line">       l2=l2 ? l2-&gt;next : l2;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> head.next;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</font>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

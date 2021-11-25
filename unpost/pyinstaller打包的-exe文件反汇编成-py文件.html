@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            pyinstaller打包的.exe文件反编译成.py文件 |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,36 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <h3 id="0x00-工具"><a href="#0x00-工具" class="headerlink" title="0x00 工具"></a>0x00 工具</h3><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/countercept/python-exe-unpacker/blob/master/pyinstxtractor.py" >pyinstxtractor<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/rocky/python-uncompyle6" >uncompyle6<i class="fas fa-external-link-alt"></i></a> 安装命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uncompyle6 </span><br></pre></td></tr></table></figure>
+<h3 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h3><p>在做ctf逆向题目时有时会遇到python写的.exe程序，如果能够将.exe反编译成python源码，就能更快解题。python打包exe文件有使用py2exe，pyinstaller，cx_Freeze，nuitka等方式，其中pyinstaller是最常用的方法。</p>
+<h3 id="0x02判断是否为pyinstaller打包的exe文件"><a href="#0x02判断是否为pyinstaller打包的exe文件" class="headerlink" title="0x02判断是否为pyinstaller打包的exe文件"></a>0x02判断是否为pyinstaller打包的exe文件</h3><p>IDA中打开字符串窗口，看到有一大堆Py_开头的字符串，可以判断是python写的程序<br><img src="https://i.loli.net/2020/09/03/aNMxhbJjXsBKZDA.png" alt="image-20200903215009571"><br>接着再CTRL + F搜索 pyinstaller，如果搜索的到，就可以确定是pyinstaller打包<br><img src="https://i.loli.net/2020/09/03/Vvyl2nkDpaABGOX.png" alt="image-20200903215135862"></p>
+<h3 id="0x03-exe转-pyc"><a href="#0x03-exe转-pyc" class="headerlink" title="0x03 .exe转.pyc"></a>0x03 .exe转.pyc</h3><p>首先利用pyinstxtractor脚本将.exe文件转为.pyc文件，指令格式为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pyinstxtractor.py  exe文件名称</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2020/09/03/hcNtpvWOJMiZEDl.png" alt="image-20200903215811896"><br>需要注意的是，如果你的本机python版本与写exe的python版本不同的话可能会失败。<br>最后一行显示，你可以反编译.pyc文件。<br>所以，我们就到生成的目录下找到.pyc文件。<br><strong>注意</strong>：有时候会找不到pyc文件，这是因为生成的文件少了pyc文件头，所以我们要找到少了pyc文件头的文件。一般情况下，该文件在名称和exe名称相同的.manifest文件上面。如果不是，可以把没有后缀名的文件都试一试。<br><img src="https://i.loli.net/2020/09/03/Ha5L629sGolr3AR.png" alt="image-20200903222549282"></p>
+<h3 id="0x04-添加pyc文件头"><a href="#0x04-添加pyc文件头" class="headerlink" title="0x04 添加pyc文件头"></a>0x04 添加pyc文件头</h3><p>找到目录下名为struct的文件和pyc文件，用二进制编辑器打开，对比文件头可以看出文件的前16个字节(即\xE3之前的字符，不同的pyc文件少掉的文件头可能不同，所以不一定是十六字节）便是少掉的pyc文件头，将其<strong>添加</strong>到pyc文件偏移量为零的位置。<br><img src="https://i.loli.net/2020/09/27/AcUupPwkB1f8Vqa.png" alt="image-20200927170431255"><br>注意，如果目录下本来就有.pyc文件也需要添加pyc文件头。</p>
+<h3 id="0x05-pyc转-py"><a href="#0x05-pyc转-py" class="headerlink" title="0x05 .pyc转.py"></a>0x05 .pyc转.py</h3><p>命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uncompyle6 -o 生成文件.py 目标文件.pyc</span><br></pre></td></tr></table></figure>
+<p>注意将pyc文件名改为XXX.pyc,否则会发生错误。<br><img src="https://i.loli.net/2020/09/05/ESBCqy2e6ZXcdpr.png" alt="image-20200905002611490"></p>
+<h3 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06 总结"></a>0x06 总结</h3><p>可能出现的问题：</p>
+<ol>
+<li> .exe转.pyc失败，可能原因是pyinstaller打包时的python版本与你的python版本不同。</li>
+<li> .pyc文件反编译失败，可能原因是pyc文件头没有正确添加。<br><a class="link"   target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iCQqLsEDPPGnLLNGSW8txg" >附件<i class="fas fa-external-link-alt"></i></a> 提取码：lajh</li>
+</ol>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

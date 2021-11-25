@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            BabyXor |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,30 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>首先查壳，发现无法识别<br><img src="/images/pasted-34.png" alt="upload successful"></p>
+<p>程序可能被加密或压缩过，所以需要脱壳。<br>OD载入，<img src="/images/pasted-35.png" alt="upload successful"></p>
+<p>脱壳后再次查壳，是VC++<br><img src="/images/pasted-37.png" alt="upload successful"></p>
+<p>IDA中找到主函数，_filbuf等函数参考文末文章<br><img src="/images/pasted-38.png" alt="upload successful"></p>
+<p>其中函数sub_40108C<br><img src="/images/pasted-39.png" alt="upload successful"></p>
+<p>函数sub_401041<br><img src="/images/pasted-40.png" alt="upload successful"></p>
+<p>函数sub_4010C3<br><img src="/images/pasted-41.png" alt="upload successful"></p>
+<p>其中sprintf函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sprintf</span><span class="params">(<span class="keyword">char</span> *<span class="built_in">string</span>, <span class="keyword">char</span> *format [,argument,...])</span></span>;</span><br><span class="line">- 作用为把格式化的数据写入某个字符串缓冲区</span><br><span class="line">- <span class="built_in">string</span>  --指向数组指针</span><br><span class="line">- format --字符串，指定参数的格式，与<span class="built_in">printf</span>的输出格式相同</span><br><span class="line">- argument --参数</span><br></pre></td></tr></table></figure>
+<p>函数中没有找到输出的代码，flag应该是这三个函数中生成的字符串。<br>一种思路是分析代码写exp。<br>另一种思路，因为这三个函数的操作与我们输入的字符串没有关系，所以可以动态调试：<br>OD载入，分别在这三个函数中下断点，注意寄存器区域<br><img src="/images/pasted-42.png" alt="upload successful"><br><img src="/images/pasted-43.png" alt="upload successful"><br><img src="/images/pasted-44.png" alt="upload successful"><br>把三个字符串连起来即为flag<br>参考和相关文章：<br><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/volcanol/archive/2011/06/09/2076907.html" >https://www.cnblogs.com/volcanol/archive/2011/06/09/2076907.html<i class="fas fa-external-link-alt"></i></a>  (_filbuf等函数)<br><a class="link"   target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-sprintf.html" >https://www.runoob.com/cprogramming/c-function-sprintf.html<i class="fas fa-external-link-alt"></i></a></p>
 
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>

