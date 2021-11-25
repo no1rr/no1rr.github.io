@@ -157,7 +157,7 @@
             <h2 id="tctf-final-securejit2"><a href="#tctf-final-securejit2" class="headerlink" title="tctf-final-securejit2"></a>tctf-final-securejit2</h2><p>脚本大致逻辑是将python代码编译成汇编代码，实现基本的算术运算</p>
 <p>脚本开头有原作者博客地址，下了一份原脚本与题目对比，发现赛题去掉了对函数是否是main函数的判断和visit_Subscript函数，并且题目最后使用mmap开了一块可读可写可执行的内存，把汇编代码放到内存中并执行。猜测有可能是写shellcode</p>
 <p>为了方便查看汇编代码，patch下程序，把汇编代码保存到文件中</p>
-<p><img src="E:\TyporaImages\image-20211125105945547.png" alt="image-20211125105945547">h</p>
+<p><img src="https://i.loli.net/2021/11/25/8gtWqaiSKkERMeO.png" alt="image-20211125105945547">h</p>
 <h3 id="漏洞"><a href="#漏洞" class="headerlink" title="漏洞"></a>漏洞</h3><p>代码中在调用未定义的函数时，</p>
 <p>例如</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">def main():</span></span><br><span class="line"><span class="string">	a()</span></span><br><span class="line"><span class="string">	b()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF\n&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -167,16 +167,16 @@
 
 <p>可以看到调用未定义的函数时，汇编指令是<code>call $5</code>， 相当于什么都没做。问题在于call指令会把下一条指令的地址push到栈中，如果是正常情况，在被调函数的末尾ret指令会把地址出栈。但在上面的例子中，由于a,b函数不存在，返回地址就会残留在栈中，栈平衡会遭到破坏，这样就可以控制rbp和rip</p>
 <h6 id="下面通过调试验证"><a href="#下面通过调试验证" class="headerlink" title="下面通过调试验证"></a>下面通过调试验证</h6><p>首先添加代码，目的是在汇编代码执行前让python脚本停下来</p>
-<p><img src="E:\TyporaImages\image-20211125112235538.png" alt="image-20211125112235538"></p>
+<p><img src="https://i.loli.net/2021/11/25/Zr7oyhUSzNOVnIH.png" alt="image-20211125112235538"></p>
 <p>运行程序，在新终端执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb attach `pidof python3`</span><br></pre></td></tr></table></figure>
 
 <p>gdb查看内存情况，找到rwx的一段内存并下断</p>
-<p><img src="E:\TyporaImages\image-20211125113430506.png" alt="image-20211125113430506"></p>
+<p><img src="https://i.loli.net/2021/11/25/3oc8YQy6tBwGFuT.png" alt="image-20211125113430506"></p>
 <p>继续运行程序，gdb断在第一条指令，此时rbp指向内容为0x7，返回地址为0x7fff47b920f0</p>
-<p><img src="E:\TyporaImages\image-20211125115021907.png" alt="image-20211125115021907"></p>
+<p><img src="https://i.loli.net/2021/11/25/aRyr3LqhsXgeUFH.png" alt="image-20211125115021907"></p>
 <p>继续运行，发现rbp和返回地址分别变成了call $5指令的下一条指令的地址</p>
-<p><img src="E:\TyporaImages\image-20211125115127691.png" alt="image-20211125115127691"></p>
+<p><img src="https://i.loli.net/2021/11/25/kDupIsjzNwLdQiy.png" alt="image-20211125115127691"></p>
 <p>至此我们可以劫持rbp和rip为程序中的某条指令的地址，可以多次执行程序。</p>
 <p>再来看下面一段代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">payload = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def main():</span></span><br><span class="line"><span class="string">	a = 0x1010</span></span><br><span class="line"><span class="string">	a *= 20</span></span><br><span class="line"><span class="string">	a -= 50</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF\n&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
